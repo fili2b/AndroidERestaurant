@@ -3,4 +3,15 @@
     <string name="entree_title">Les entrées</string>
     <string name="plat_title">Les plats</string>
     <string name="dessert_title">Les desserts</string>
+
+    <!--BDD-->
+    <string name="entree1">Nems</string>
+    <string name="entree2">Makis</string>
+    <string name="entree3">Tempura terre et mer</string>
+    <string name="plat1">Ramen sautées</string>
+    <string name="plat2">Udon</string>
+    <string name="plat3">Crevettes Teriyaki</string>
+    <string name="dessert1">Dango</string>
+    <string name="dessert2">Dorayaki</string>
+    <string name="dessert3">Manju</string>
 </resources>
