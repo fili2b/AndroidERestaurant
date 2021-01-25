@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Lardons les Amarres</string>
+    <string name="titre1">Ramen ta fraise</string>
+    <string name="titre2">Et commande sushi !</string>
     <string name="entree_title">Les entrées</string>
     <string name="plat_title">Les plats</string>
     <string name="dessert_title">Les desserts</string>
