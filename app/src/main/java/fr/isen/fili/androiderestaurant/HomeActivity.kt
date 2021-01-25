@@ -20,24 +20,24 @@ class HomeActivity : AppCompatActivity() {
 
         binding.entreeButton.setOnClickListener{
             val intent = Intent(this, CategoryActivity::class.java)
-            val toast = Toast.makeText(applicationContext, "Entrées sélectionnées", Toast.LENGTH_SHORT)
-            toast.show()
+            //val toast = Toast.makeText(applicationContext, "Entrées sélectionnées", Toast.LENGTH_SHORT)
+            //toast.show()
+            intent.putExtra("category", getString(R.string.entree_title))
             startActivity(intent)
-            finish()
         }
         binding.platButton.setOnClickListener{
             val intent = Intent(this, CategoryActivity::class.java)
-            val toast = Toast.makeText(applicationContext, "Plats sélectionnés", Toast.LENGTH_SHORT)
-            toast.show()
+            //val toast = Toast.makeText(applicationContext, "Plats sélectionnés", Toast.LENGTH_SHORT)
+            //toast.show()
+            intent.putExtra("category", getString(R.string.plat_title))
             startActivity(intent)
-            finish()
         }
         binding.dessertButton.setOnClickListener{
             val intent = Intent(this, CategoryActivity::class.java)
-            val toast = Toast.makeText(applicationContext, "Desserts sélectionnés", Toast.LENGTH_SHORT)
-            toast.show()
+            //val toast = Toast.makeText(applicationContext, "Desserts sélectionnés", Toast.LENGTH_SHORT)
+            //toast.show()
+            intent.putExtra("category", getString(R.string.dessert_title))
             startActivity(intent)
-            finish()
         }
     }
 

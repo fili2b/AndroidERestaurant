@@ -29,7 +29,7 @@
         android:layout_marginBottom="312dp"
         android:background="#FFFFFF"
         android:backgroundTint="#009688"
-        android:text="Entrées"
+        android:text="@string/entree_title"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         app:iconTint="#010E0D"
@@ -45,7 +45,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginBottom="236dp"
         android:backgroundTint="#009688"
-        android:text="Plats"
+        android:text="@string/plat_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entreeButton"
@@ -58,7 +58,7 @@
         android:layout_marginStart="96dp"
         android:layout_marginBottom="120dp"
         android:backgroundTint="#009688"
-        android:text="Desserts"
+        android:text="@string/dessert_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
