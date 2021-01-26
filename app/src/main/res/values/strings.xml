@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Lardons les Amarres</string>
+    <string name="app_name">AfterWok</string>
     <string name="titre1">Ramen ta fraise</string>
-    <string name="titre2">Et commande sushi !</string>
+    <string name="titre2">C\'est nippon ni mauvais</string>
     <string name="entree_title">Les entrées</string>
     <string name="plat_title">Les plats</string>
     <string name="dessert_title">Les desserts</string>
 
-    <!--BDD-->
+    <!--BDD
     <string name="entree1">Nems</string>
     <string name="entree2">Makis</string>
     <string name="entree3">Tempura terre et mer</string>
@@ -15,5 +15,17 @@
     <string name="plat3">Crevettes Teriyaki</string>
     <string name="dessert1">Dango</string>
     <string name="dessert2">Dorayaki</string>
-    <string name="dessert3">Manju</string>
+    <string name="dessert3">Manju</string>-->
+
+    <string-array name="choices_array">
+        <item>Nems</item>
+        <item>Makis</item>
+        <item>Tempura terre et mer</item>
+        <item>Ramen sautées</item>
+        <item>Udon</item>
+        <item>Crevettes Teriyaki</item>
+        <item>Dango</item>
+        <item>Dorayaki</item>
+        <item>Manju</item>
+    </string-array>
 </resources>
