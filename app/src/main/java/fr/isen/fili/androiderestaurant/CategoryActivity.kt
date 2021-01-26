@@ -3,6 +3,7 @@ package fr.isen.fili.androiderestaurant
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import fr.isen.fili.androiderestaurant.databinding.ActivityCategoryBinding
+import model.Dish
 import model.FoodDataJson
 import org.json.JSONException
 import org.json.JSONObject
@@ -25,14 +27,14 @@ class CategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val categoryTitle = intent.getStringExtra(HomeActivity.CATEGORY)
 
-        loadData()
+        loadData(categoryTitle?:"")
 
-        binding.categoryTitle.text = intent.getStringExtra(HomeActivity.CATEGORY)
-        val menu = resources.getStringArray(R.array.choices_array).toList()
+        binding.categoryTitle.text = categoryTitle
     }
 
-        private fun loadData(){
+        private fun loadData(category: String){
             //Requete POST avec Volley
             val postUrl = "http://test.api.catering.bluecodegames.com/menu"
             val requestQueue = Volley.newRequestQueue(this)
@@ -46,27 +48,24 @@ class CategoryActivity : AppCompatActivity() {
             val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, postUrl, postData,
                 {
                     val gson = Gson().fromJson(it.toString(), FoodDataJson::class.java)
-                    val categories: List<String> = gson.data.map {it.name}
-                    displayCategories(categories)
+                    gson.data.firstOrNull(){ it.name == category}?.dishes?.let{
+                        dishes -> displayCategories(dishes)
+                    }?: run { Log.e("CategoryActivity", "Pas de categorie trouvée")}
                 },
                 {error -> error.printStackTrace()})//afficher erreur au lieu loader
 
             requestQueue.add(jsonObjectRequest)
         }
 
-        private fun displayCategories(categories: List<String>) {
-            binding.categorieLoader.visibility = View.GONE
+        private fun displayCategories(menu: List<Dish>) {
             binding.categorieLoader.isVisible = false
             binding.listCategory.isVisible = true
 
             binding.listCategory.layoutManager = LinearLayoutManager(this)
-            binding.listCategory.adapter = CategoryListAdapter(categories) {
+            binding.listCategory.adapter = CategoryListAdapter(menu) {
                 val intent = Intent(this, DetailCategoryActivity::class.java)
-                intent.putExtra("category", it)
+                intent.putExtra("dish", it)
                 startActivity(intent)
             }
         }
-
-
-
 }
