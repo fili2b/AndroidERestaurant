@@ -3,12 +3,16 @@ package fr.isen.fili.androiderestaurant
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
 import fr.isen.fili.androiderestaurant.databinding.ActivityCategoryBinding
+import model.FoodDataJson
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -22,36 +26,47 @@ class CategoryActivity : AppCompatActivity() {
         binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        loadData()
+
         binding.categoryTitle.text = intent.getStringExtra(HomeActivity.CATEGORY)
-
-        binding.listCategory.layoutManager = LinearLayoutManager(this)
         val menu = resources.getStringArray(R.array.choices_array).toList()
-
-        //On rend la carte clickable et on lance l'activité détails au click
-        binding.listCategory.adapter = CategoryListAdapter(menu){
-            val intent = Intent(this, DetailCategoryActivity::class.java)
-            intent.putExtra("category", it)
-            startActivity(intent)
-        }
-
-        //Requete POST avec Volley
-        val postUrl = "http://test.api.catering.bluecodegames.com/menu"
-        val requestQueue = Volley.newRequestQueue(this)
-        val postData = JSONObject()
-        try {
-            postData.put("id_shop", "1")
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.POST,
-            postUrl,
-            postData,
-            { response -> println(response) },
-            {error -> error.printStackTrace()}
-        )
-        requestQueue.add(jsonObjectRequest)
     }
+
+        private fun loadData(){
+            //Requete POST avec Volley
+            val postUrl = "http://test.api.catering.bluecodegames.com/menu"
+            val requestQueue = Volley.newRequestQueue(this)
+            val postData = JSONObject()
+            try {
+                postData.put("id_shop", "1")
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
+            val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, postUrl, postData,
+                {
+                    val gson = Gson().fromJson(it.toString(), FoodDataJson::class.java)
+                    val categories: List<String> = gson.data.map {it.name}
+                    displayCategories(categories)
+                },
+                {error -> error.printStackTrace()})//afficher erreur au lieu loader
+
+            requestQueue.add(jsonObjectRequest)
+        }
+
+        private fun displayCategories(categories: List<String>) {
+            binding.categorieLoader.visibility = View.GONE
+            binding.categorieLoader.isVisible = false
+            binding.listCategory.isVisible = true
+
+            binding.listCategory.layoutManager = LinearLayoutManager(this)
+            binding.listCategory.adapter = CategoryListAdapter(categories) {
+                val intent = Intent(this, DetailCategoryActivity::class.java)
+                intent.putExtra("category", it)
+                startActivity(intent)
+            }
+        }
+
 
 
 }
