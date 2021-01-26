@@ -2,6 +2,7 @@ package fr.isen.fili.androiderestaurant
 import android.view.LayoutInflater
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
+import com.squareup.picasso.Picasso
 import fr.isen.fili.androiderestaurant.databinding.CategoryCellBinding
 import model.Dish
 
@@ -16,6 +17,15 @@ class CategoryListAdapter(val categories: List<Dish>, private val categoriesClic
 
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
         holder.title.text = categories[position].title
+        holder.tarif.text = categories[position].getFormattedPrice()
+        val picture = categories[position].getFirstPicture()
+        if(picture != null && picture.isNotEmpty()){
+            Picasso.get()
+                .load(picture)
+                .placeholder(R.drawable.logo)
+                .into(holder.image)
+        }
+
         holder.layout.setOnClickListener{
             categoriesClickListener.invoke(categories[position])
         }
@@ -28,8 +38,9 @@ class CategoryListAdapter(val categories: List<Dish>, private val categoriesClic
     class CategoryHolder(binding: CategoryCellBinding): RecyclerView.ViewHolder(binding.root){
         val title = binding.dishName
         val layout = binding.root
-        //Afficher le prix
-        //val prix = binding.price
+        //val description = binding.dishDescription
+        val tarif = binding.price
+        val image = binding.dishPicture
     }
     data class Choix(val nom: String, val image: Int)
 }
