@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.squareup.picasso.Picasso
 import fr.isen.fili.androiderestaurant.databinding.ActivityDetailCategoryBinding
 import model.Dish
 import org.json.JSONException
@@ -32,6 +33,15 @@ class DetailCategoryActivity : AppCompatActivity() {
         binding.dishPrice.text = dish?.getPrice()
 
         //Afficher l'image du plat
-        //utiliser un viewPager
+        //Afficher photo
+        val image = dish?.getFirstPicture()
+        if ( image != null && image.isNotEmpty()){
+            Picasso.get()
+                .load(image)
+                .fit().centerCrop()
+                .placeholder(R.drawable.errorloading)
+                .error(R.drawable.errorloading)
+                .into(binding.dishImage)
+        }
     }
 }

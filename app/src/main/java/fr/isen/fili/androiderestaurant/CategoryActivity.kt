@@ -12,6 +12,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import fr.isen.fili.androiderestaurant.databinding.ActivityCategoryBinding
 import model.Dish
 import model.FoodDataJson
@@ -32,6 +33,31 @@ class CategoryActivity : AppCompatActivity() {
         loadData(categoryTitle?:"")
 
         binding.categoryTitle.text = categoryTitle
+        val joke = binding.blagueImage
+        if (categoryTitle == "Entrées") {
+            Picasso.get()
+                .load(R.drawable.blaguewok)
+                .fit().centerCrop()
+                .placeholder(R.drawable.errorloading)
+                .error(R.drawable.errorloading)
+                .into(joke)
+        }
+        if (categoryTitle == "Plats"){
+            Picasso.get()
+                .load(R.drawable.poischiche)
+                .fit().centerCrop()
+                .placeholder(R.drawable.errorloading)
+                .error(R.drawable.errorloading)
+                .into(joke)
+        }
+        if (categoryTitle == "Desserts"){
+            Picasso.get()
+                .load(R.drawable.glace)
+                .fit().centerCrop()
+                .placeholder(R.drawable.errorloading)
+                .error(R.drawable.errorloading)
+                .into(joke)
+        }
     }
 
         private fun loadData(category: String){

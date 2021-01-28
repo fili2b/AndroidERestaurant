@@ -6,12 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    app:cardBackgroundColor="#F44336"
     app:layout_constraintBottom_toTopOf="parent"
     app:layout_constraintStart_toStartOf="@+id/dishPicture">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
 
         <ImageView
             android:id="@+id/dishPicture"
@@ -20,7 +22,8 @@
             android:layout_marginStart="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/errorloading"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/dishName"
@@ -28,9 +31,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-smallcaps"
+            android:fontFamily="@font/architects_daughter"
             android:text="Nom"
-            android:textSize="24sp"
+            android:textColor="#000000"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/dishPicture"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,9 +47,11 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif-smallcaps"
             android:text="TextView"
+            android:textColor="#FFEB3B"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/dishName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

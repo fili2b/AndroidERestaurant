@@ -22,7 +22,9 @@ class CategoryListAdapter(val categories: List<Dish>, private val categoriesClic
         if(picture != null && picture.isNotEmpty()){
             Picasso.get()
                 .load(picture)
-                .placeholder(R.drawable.logo)
+                .fit().centerCrop()
+                .placeholder(R.drawable.errorloading)
+                .error(R.drawable.errorloading)
                 .into(holder.image)
         }
 
