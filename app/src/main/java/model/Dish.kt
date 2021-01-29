@@ -11,6 +11,7 @@ data class Dish(
 ): Serializable {
     fun getPrice() = prices[0].price + "€"
     fun getFormattedPrice() = prices[0].price + "€"
+    fun getJustPrice() = prices[0].price
     fun getFirstPicture() = if (pictures.isNotEmpty() && pictures[0].isNotEmpty()) {
         pictures[0]
     } else {

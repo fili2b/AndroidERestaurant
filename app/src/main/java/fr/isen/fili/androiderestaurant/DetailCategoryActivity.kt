@@ -1,5 +1,6 @@
 package fr.isen.fili.androiderestaurant
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,8 @@ import org.json.JSONObject
 private lateinit var binding: ActivityDetailCategoryBinding
 
 class DetailCategoryActivity : AppCompatActivity() {
+
+    private var quantity = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,5 +51,28 @@ class DetailCategoryActivity : AppCompatActivity() {
         dish.getAllPictures()?.let {
             binding.Carousel.adapter = FragmentAdapter(this, it)
         }
+
+        //Quantity selector plus
+        binding.plusButton.setOnClickListener{
+            if (quantity < 10){
+                quantity += 1
+            }
+            binding.counter.text = quantity.toString()
+            //On met à jour le prix total
+            var totalprice = dish.getJustPrice().toFloat() * quantity
+            binding.totalOrder.text = totalprice.toString() + "€"
+        }
+
+        //Quantity selector minus
+        binding.minusButton.setOnClickListener{
+            if(quantity > 0){
+                quantity -= 1
+            }
+            binding.counter.text = quantity.toString()
+            //On met à jour le prix total
+            var totalprice = (dish.getJustPrice().toFloat() * quantity)
+            binding.totalOrder.text = totalprice.toString() + "€"
+        }
+
     }
 }
