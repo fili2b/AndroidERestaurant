@@ -14,8 +14,8 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import fr.isen.fili.androiderestaurant.databinding.ActivityCategoryBinding
-import model.Dish
-import model.FoodDataJson
+import fr.isen.fili.androiderestaurant.model.Dish
+import fr.isen.fili.androiderestaurant.model.FoodDataJson
 import org.json.JSONException
 import org.json.JSONObject
 

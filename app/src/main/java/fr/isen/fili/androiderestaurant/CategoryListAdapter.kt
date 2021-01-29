@@ -4,7 +4,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso
 import fr.isen.fili.androiderestaurant.databinding.CategoryCellBinding
-import model.Dish
+import fr.isen.fili.androiderestaurant.model.Dish
 
 class CategoryListAdapter(val categories: List<Dish>, private val categoriesClickListener: (Dish) -> Unit) : RecyclerView.Adapter<CategoryListAdapter.CategoryHolder>() {
     override fun onCreateViewHolder(

@@ -1,17 +1,13 @@
 package fr.isen.fili.androiderestaurant
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
-import com.squareup.picasso.Picasso
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import fr.isen.fili.androiderestaurant.carrousel.FragmentAdapter
 import fr.isen.fili.androiderestaurant.databinding.ActivityDetailCategoryBinding
-import model.Dish
-import org.json.JSONException
-import org.json.JSONObject
+import fr.isen.fili.androiderestaurant.model.Dish
+import java.io.File
 
 private lateinit var binding: ActivityDetailCategoryBinding
 
@@ -74,5 +70,23 @@ class DetailCategoryActivity : AppCompatActivity() {
             binding.totalOrder.text = totalprice.toString() + "€"
         }
 
+        //Gestion du panier
+        binding.orderButton.setOnClickListener{
+            addToBasket(dish, quantity)
+        }
+    }
+
+    fun addToBasket(item: Dish, num : Int) { //mettre une liste de dish
+
+        val file = File(cacheDir.absolutePath + "Basket.json")
+        if (file.exists()){
+            val json = Gson().fromJson(file.readText(), JsonBasket::class.java)
+            json.quantity = num
+            json.item = item
+            file.writeText(Gson().toJson(json))
+        } else {
+            val jsonObject = Gson().toJson(JsonBasket(num, item))
+            file.writeText(jsonObject)
+        }
     }
 }
