@@ -37,8 +37,9 @@
 
     <ImageView
         android:id="@+id/dishImage"
-        android:layout_width="413dp"
-        android:layout_height="197dp"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
