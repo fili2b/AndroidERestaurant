@@ -1,6 +1,7 @@
 package fr.isen.fili.androiderestaurant
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -88,5 +89,11 @@ class DetailCategoryActivity : AppCompatActivity() {
             val jsonObject = Gson().toJson(JsonBasket(num, item))
             file.writeText(jsonObject)
         }
+
+        // Alert window creation
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage("Article ajouté au panier").setCancelable(true)
+        val alert = dialogBuilder.create()
+        alert.show()
     }
 }
