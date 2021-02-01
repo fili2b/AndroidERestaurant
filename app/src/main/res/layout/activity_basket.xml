@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondmenu"
     tools:context=".BasketActivity">
 
     <TextView
         android:id="@+id/basketTitle"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:gravity="center"
         android:text="Votre commande"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="#F44336"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,9 +25,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/basketRecyclerView"
-        android:layout_width="403dp"
-        android:layout_height="503dp"
-        android:layout_marginTop="262dp"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

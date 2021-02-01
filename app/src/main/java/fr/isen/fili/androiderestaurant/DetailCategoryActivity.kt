@@ -1,15 +1,9 @@
 package fr.isen.fili.androiderestaurant
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import fr.isen.fili.androiderestaurant.basket.JsonBasket
 import fr.isen.fili.androiderestaurant.basket.JsonItemBasket
@@ -20,7 +14,7 @@ import java.io.File
 
 private lateinit var binding: ActivityDetailCategoryBinding
 
-class DetailCategoryActivity : AppCompatActivity() {
+class DetailCategoryActivity : BaseActivity() {
 
     private var quantity = 0
     lateinit var sharedPreferences: SharedPreferences
@@ -79,20 +73,6 @@ class DetailCategoryActivity : AppCompatActivity() {
         }
     }
 
-    /*fun addToBasket(item: Dish, num : Int) {
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val article = JsonItemBasket(num, item)
-        val file = File(cacheDir.absolutePath + "Basket.json")
-        if (file.exists()){
-            val json = gson.fromJson(file.readText(), JsonBasket::class.java)
-            json.items += article
-            file.writeText(Gson().toJson(json))
-        } else {
-            val jsonObject = Gson().toJson(JsonBasket(listOf(article)))
-            file.writeText(jsonObject)
-        }
-    }*/
-
     fun addToBasket(item: Dish, quantity : Int) {
         val gson = GsonBuilder().setPrettyPrinting().create()
         val file = File(cacheDir.absolutePath + "Basket.json")
@@ -119,27 +99,11 @@ class DetailCategoryActivity : AppCompatActivity() {
         val count = basket.items.sumOf { it.quantity }
         val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
         sharedPreferences.edit().putInt(BASKET_COUNT, count).apply()
+        invalidateOptionsMenu()
     }
 
     companion object {
         const val APP_PREFS = "app_prefs"
         const val BASKET_COUNT = "basket_count"
-    }
-
-    //Gestion du caddie
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_action_bar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.basket -> {
-                startActivity(
-                    Intent(applicationContext, BasketActivity::class.java)
-                )
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }

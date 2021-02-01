@@ -22,10 +22,9 @@ import org.json.JSONException
 import org.json.JSONObject
 
 private lateinit var binding: ActivityCategoryBinding
-private lateinit var linearLayoutManager: LinearLayoutManager
 
 
-class CategoryActivity : AppCompatActivity() {
+class CategoryActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCategoryBinding.inflate(layoutInflater)
@@ -96,21 +95,4 @@ class CategoryActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-
-    //Gestion du caddie
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_action_bar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.basket -> {
-                startActivity(
-                    Intent(applicationContext, BasketActivity::class.java)
-                )
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 }

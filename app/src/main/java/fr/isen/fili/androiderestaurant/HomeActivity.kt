@@ -12,7 +12,7 @@ import fr.isen.fili.androiderestaurant.databinding.ActivityHomeBinding
 
 private lateinit var binding: ActivityHomeBinding
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,23 +41,6 @@ class HomeActivity : AppCompatActivity() {
             //toast.show()
             intent.putExtra(CATEGORY, getString(R.string.dessert_title))
             startActivity(intent)
-        }
-    }
-
-    //Gestion du caddie
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_action_bar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.basket -> {
-                startActivity(
-                    Intent(applicationContext, BasketActivity::class.java)
-                )
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 

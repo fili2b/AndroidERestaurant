@@ -41,9 +41,8 @@ class CategoryListAdapter(val categories: List<Dish>, private val categoriesClic
         val title = binding.dishName
         val layout = binding.root
         //val description = binding.dishDescription
-        val tarif = binding.price
+        val tarif = binding.totalPrice
         val image = binding.dishPicture
     }
-    data class Choix(val nom: String, val image: Int)
 }
 
