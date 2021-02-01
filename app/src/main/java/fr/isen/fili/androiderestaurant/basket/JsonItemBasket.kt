@@ -1,4 +1,4 @@
-package fr.isen.fili.androiderestaurant
+package fr.isen.fili.androiderestaurant.basket
 
 import com.google.gson.annotations.SerializedName
 import fr.isen.fili.androiderestaurant.model.Dish
