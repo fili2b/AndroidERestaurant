@@ -33,17 +33,6 @@ class DetailCategoryActivity : AppCompatActivity() {
         //Afficher le prix
         binding.dishPrice.text = dish.getPrice()
 
-        //Afficher une image du plat
-        /*val image = dish.getFirstPicture()
-        if ( image != null && image.isNotEmpty()){
-            Picasso.get()
-                .load(image)
-                .fit().centerCrop()
-                .placeholder(R.drawable.errorloading)
-                .error(R.drawable.errorloading)
-                .into(binding.dishImage)
-        }*/
-
         //Carousel
         dish.getAllPictures()?.let {
             binding.Carousel.adapter = FragmentAdapter(this, it)
@@ -74,23 +63,26 @@ class DetailCategoryActivity : AppCompatActivity() {
         //Gestion du panier
         binding.orderButton.setOnClickListener{
             addToBasket(dish, quantity)
+            displayMessage()
         }
     }
 
-    fun addToBasket(item: Dish, num : Int) { //mettre une liste de dish
-
+    fun addToBasket(item: Dish, num : Int) {
+        val article = JsonItemBasket(num, item)
         val file = File(cacheDir.absolutePath + "Basket.json")
         if (file.exists()){
             val json = Gson().fromJson(file.readText(), JsonBasket::class.java)
-            json.quantity = num
-            json.item = item
+            json.totalquantity += num
+            json.basket += article
             file.writeText(Gson().toJson(json))
         } else {
-            val jsonObject = Gson().toJson(JsonBasket(num, item))
+            val jsonObject = Gson().toJson(JsonBasket(num, listOf(article)))
             file.writeText(jsonObject)
         }
+    }
 
-        // Alert window creation
+    // Alert window creation
+    fun displayMessage() {
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setMessage("Article ajouté au panier").setCancelable(true)
         val alert = dialogBuilder.create()
