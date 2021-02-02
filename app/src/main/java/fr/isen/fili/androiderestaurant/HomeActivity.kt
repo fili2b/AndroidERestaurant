@@ -1,13 +1,8 @@
 package fr.isen.fili.androiderestaurant
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Button
-import android.widget.Toast
 import fr.isen.fili.androiderestaurant.databinding.ActivityHomeBinding
 
 private lateinit var binding: ActivityHomeBinding
@@ -42,6 +37,7 @@ class HomeActivity : BaseActivity() {
             intent.putExtra(CATEGORY, getString(R.string.dessert_title))
             startActivity(intent)
         }
+
     }
 
     override fun onDestroy() {

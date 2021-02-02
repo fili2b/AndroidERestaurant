@@ -1,5 +1,6 @@
 package fr.isen.fili.androiderestaurant.basket
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -7,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import fr.isen.fili.androiderestaurant.BaseActivity
+import fr.isen.fili.androiderestaurant.*
 import fr.isen.fili.androiderestaurant.basket.JsonBasket
 import fr.isen.fili.androiderestaurant.basket.JsonItemBasket
 import fr.isen.fili.androiderestaurant.databinding.ActivityBasketBinding
@@ -22,6 +23,10 @@ class BasketActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBasketBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.payButton.setOnClickListener(){
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
         readFile()
     }
 
@@ -38,7 +43,7 @@ class BasketActivity : BaseActivity() {
                 resetBasket(basket)
             }
             foodRecycler.layoutManager = LinearLayoutManager(this)
-            foodRecycler.isVisible = true
+            //foodRecycler.isVisible = true
         }
     }
     fun resetBasket(basket: JsonBasket) {
