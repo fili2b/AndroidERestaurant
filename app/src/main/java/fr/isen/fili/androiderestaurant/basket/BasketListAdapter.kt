@@ -1,10 +1,10 @@
-package fr.isen.fili.androiderestaurant
+package fr.isen.fili.androiderestaurant.basket
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import fr.isen.fili.androiderestaurant.basket.JsonItemBasket
+import fr.isen.fili.androiderestaurant.R
 import fr.isen.fili.androiderestaurant.databinding.BasketCellBinding
 
 private lateinit var binding: BasketCellBinding

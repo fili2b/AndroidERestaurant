@@ -4,8 +4,9 @@ import android.content.Intent
 import android.view.Menu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import fr.isen.fili.androiderestaurant.BasketActivity.Companion.APP_PREFS
-import fr.isen.fili.androiderestaurant.BasketActivity.Companion.BASKET_COUNT
+import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.APP_PREFS
+import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.BASKET_COUNT
+import fr.isen.fili.androiderestaurant.basket.BasketActivity
 
 open class BaseActivity: AppCompatActivity() {
     //Gestion du caddie
