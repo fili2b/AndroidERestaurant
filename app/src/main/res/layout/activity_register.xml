@@ -85,7 +85,7 @@
             android:background="@drawable/et_custom"
             android:fontFamily="@font/architects_daughter"
             android:hint="@string/address"
-            android:inputType="textEmailAddress"
+            android:inputType="textPostalAddress"
             android:padding="15dp"
             android:textColor="#000000"
             android:textSize="15sp" />
@@ -100,6 +100,7 @@
             android:background="@drawable/et_custom"
             android:fontFamily="@font/architects_daughter"
             android:hint="@string/e_mail"
+            android:inputType="textEmailAddress"
             android:padding="15dp"
             android:textColor="#000000"
             android:textSize="15sp" />

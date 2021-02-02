@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import fr.isen.fili.androiderestaurant.*
+import fr.isen.fili.androiderestaurant.RegisterActivity.Companion.ID_CLIENT
 import fr.isen.fili.androiderestaurant.basket.JsonBasket
 import fr.isen.fili.androiderestaurant.basket.JsonItemBasket
 import fr.isen.fili.androiderestaurant.databinding.ActivityBasketBinding
@@ -23,9 +24,17 @@ class BasketActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBasketBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Checker si client logger !!!
         binding.payButton.setOnClickListener(){
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            //already connected ? If yes then redirect to order
+            //if(ID_CLIENT != null){
+              //  val intent = Intent(this, BasketActivity::class.java)
+                //startActivity(intent)
+            //} else {
+                val intent = Intent(this, RegisterActivity::class.java)
+                startActivity(intent)
+            //}
         }
         readFile()
     }

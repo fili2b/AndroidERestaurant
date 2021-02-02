@@ -1,17 +1,16 @@
 package fr.isen.fili.androiderestaurant
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
-import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
-import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import fr.isen.fili.androiderestaurant.basket.BasketActivity
 import fr.isen.fili.androiderestaurant.databinding.ActivityRegisterBinding
 import fr.isen.fili.androiderestaurant.model.LoginJson
 import org.json.JSONException
@@ -25,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //Envoyer
+        //send register form
         binding.btnRegister.setOnClickListener(){
             if(everythingValid()){
                 sendAccount()
@@ -33,7 +32,7 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        //swipe
+        //swipe to login
         binding.arrow.setOnClickListener(){
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -66,6 +65,8 @@ class RegisterActivity : AppCompatActivity() {
         val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, postUrl, postData,
             {
                 val gson = Gson().fromJson(it.toString(), LoginJson::class.java)
+                val sharedPreferences = getSharedPreferences(BasketActivity.APP_PREFS, MODE_PRIVATE)
+                sharedPreferences.edit().putString(ID_CLIENT, gson.data.id.toString()).apply()
             },
             {
                 Log.i("state","request failed")
@@ -82,5 +83,9 @@ class RegisterActivity : AppCompatActivity() {
             return false
         }
         return true
+    }
+
+    companion object {
+        const val ID_CLIENT = "id_client"
     }
 }
