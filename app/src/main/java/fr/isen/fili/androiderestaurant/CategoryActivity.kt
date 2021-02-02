@@ -85,8 +85,8 @@ class CategoryActivity : BaseActivity() {
         }
 
         private fun displayCategories(menu: List<Dish>) {
-            binding.categorieLoader.isVisible = false
-            binding.listCategory.isVisible = true
+            //binding.categorieLoader.isVisible = false
+            //binding.listCategory.isVisible = true
 
             binding.listCategory.layoutManager = LinearLayoutManager(this)
             binding.listCategory.adapter = CategoryListAdapter(menu) {

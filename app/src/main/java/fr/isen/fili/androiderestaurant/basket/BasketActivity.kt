@@ -24,7 +24,7 @@ class BasketActivity : BaseActivity() {
         binding = ActivityBasketBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.payButton.setOnClickListener(){
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
         readFile()
