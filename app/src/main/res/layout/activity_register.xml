@@ -17,32 +17,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.393">
 
         <TextView
             android:id="@+id/tv_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:fontFamily="sans-serif-condensed-medium"
             android:text="Register"
             android:textAlignment="center"
             android:textColor="#FFEB3B"
             android:textSize="50sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginBottom="50dp"
-            android:fontFamily="@font/architects_daughter"
-            android:text="@string/tag"
-            android:textColor="#FFEB3B"
-            android:textSize="17sp"
             android:textStyle="bold" />
 
         <EditText

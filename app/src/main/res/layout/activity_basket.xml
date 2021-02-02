@@ -25,23 +25,25 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/basketRecyclerView"
-        android:layout_width="413dp"
-        android:layout_height="466dp"
+        android:layout_width="0dp"
+        android:layout_height="385dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/basketTitle" />
 
     <Button
         android:id="@+id/payButton"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#F44336"
         android:text="Payer"
         android:textAlignment="center"
         android:textColor="#000000"
         app:iconTint="#010E0D"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/basketRecyclerView"
