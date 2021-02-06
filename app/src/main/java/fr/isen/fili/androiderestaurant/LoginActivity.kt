@@ -63,11 +63,15 @@ class LoginActivity : BaseActivity() {
         val postData = JSONObject(Gson().toJson(request))
         val stringRequest = JsonObjectRequest(
             Request.Method.POST, postUrl, postData, { response ->
+                //On verifie que la reponse contient bien le tableau data
                 if(response.toString().contains("data")) {
                     val gson = Gson().fromJson(response.toString(), LoginJson::class.java)
+                    //On recupere les sharedPreferences
                     val sharedPreferences = getSharedPreferences(BasketActivity.APP_PREFS, MODE_PRIVATE)
+                    //On sauvegarde l'id client de la reponse dans la variable ID_CLIENT
                     sharedPreferences.edit().putString(ID_CLIENT, gson.data.id.toString()).apply()
                     Snackbar.make(binding.root, "Vous êtes connecté(e)", Snackbar.LENGTH_LONG).show()
+
                     //Redirection une fois logger
                     val intent = Intent(this, OrderActivity::class.java)
                     startActivity(intent)

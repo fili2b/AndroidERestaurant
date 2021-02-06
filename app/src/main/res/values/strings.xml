@@ -20,4 +20,9 @@
     <string name="last_name">Lastname</string>
     <string name="address">Address</string>
 
+    <!-- Order strings -->
+    <string name="orderTitle">Envoi de la commande</string>
+    <string name="orderSuccess">Nous vous remercions de votre commande !</string>
+    <string name="orderFail">Une erreur est survenue lors de l\'envoi</string>
+
 </resources>

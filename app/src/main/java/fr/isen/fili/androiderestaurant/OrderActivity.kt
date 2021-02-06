@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -31,6 +32,11 @@ class OrderActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.orderLoader.isVisible = true
+        binding.orderSuccess.isVisible = false
+        binding.orderFail.isVisible = false
+
         sendBasket()
     }
 
@@ -55,27 +61,25 @@ class OrderActivity : BaseActivity() {
 
         val stringRequest = JsonObjectRequest(
             Request.Method.POST, postUrl, postData, { response ->
-                Snackbar.make(
-                    binding.root,
-                    "Votre commande a bien été envoyée",
-                    Snackbar.LENGTH_LONG
-                ).show()
+                Snackbar.make(binding.root, "Votre commande a bien été envoyée", Snackbar.LENGTH_LONG).show()
+
                 //On affiche un loader
-                //binding.progressBar2.visibility = View.GONE
+                binding.orderLoader.isVisible = false
+                binding.orderSuccess.isVisible = true
                 //On delete le fichier du panier
                 file.delete()
+
                 //On met a jour le menu
                 invalidateOptionsMenu()
 
-                //On redirige sur la page d'accueil
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
+                //On met à 0 le nombre d'items dans le panier
+                val sharedPreferences = getSharedPreferences(DetailCategoryActivity.APP_PREFS, MODE_PRIVATE)
+                sharedPreferences.edit().putInt(DetailCategoryActivity.BASKET_COUNT, 0).apply()
             },
             {
                 Snackbar.make(binding.root, "Echec de l'envoi", Snackbar.LENGTH_LONG).show()
-                //binding.progressBar2.visibility = View.GONE
-                val intent = Intent(this, BasketActivity::class.java)
-                startActivity(intent)
+                binding.orderLoader.isVisible = false
+                binding.orderFail.isVisible = true
             }
         )
         requestQueue.add(stringRequest)

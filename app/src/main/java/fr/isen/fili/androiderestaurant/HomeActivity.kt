@@ -3,6 +3,7 @@ package fr.isen.fili.androiderestaurant
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import fr.isen.fili.androiderestaurant.databinding.ActivityHomeBinding
 
 private lateinit var binding: ActivityHomeBinding
@@ -40,8 +41,14 @@ class HomeActivity : BaseActivity() {
 
     }
 
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean{
+        super.onCreateOptionsMenu(menu)
+        return true;
+    }*/
+
     override fun onDestroy() {
         super.onDestroy()
+        invalidateOptionsMenu()
         Log.i(ACTIVITY, "destroyed")
     }
 
