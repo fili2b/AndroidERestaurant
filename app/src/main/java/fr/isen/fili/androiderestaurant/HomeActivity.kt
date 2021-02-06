@@ -36,15 +36,23 @@ class HomeActivity : BaseActivity() {
             //val toast = Toast.makeText(applicationContext, "Desserts sélectionnés", Toast.LENGTH_SHORT)
             //toast.show()
             intent.putExtra(CATEGORY, getString(R.string.dessert_title))
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE)
         }
 
     }
+    //start(activityforresult)
+    //set result(needToRefresh) apres le invalidOptionsMenu()
+    //override fun onactivityresult()
+    //  requestcode == 3
+    //  resultcode == resultcode
 
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean{
-        super.onCreateOptionsMenu(menu)
-        return true;
-    }*/
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.i(REQUEST_CODE.toString(), "nani")
+        if(resultCode == 4 && requestCode == REQUEST_CODE) {
+            invalidateOptionsMenu()
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -55,5 +63,7 @@ class HomeActivity : BaseActivity() {
     companion object{
         const val ACTIVITY = "HomeActivity"
         const val CATEGORY = "category"
+        const val REQUEST_CODE = 3
+        const val NEED_TO_REFRESH = 4
     }
 }

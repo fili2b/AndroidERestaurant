@@ -1,11 +1,13 @@
 package fr.isen.fili.androiderestaurant
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.GsonBuilder
+import fr.isen.fili.androiderestaurant.HomeActivity.Companion.NEED_TO_REFRESH
 import fr.isen.fili.androiderestaurant.basket.JsonBasket
 import fr.isen.fili.androiderestaurant.basket.JsonItemBasket
 import fr.isen.fili.androiderestaurant.carrousel.FragmentAdapter
@@ -101,6 +103,7 @@ class DetailCategoryActivity : BaseActivity() {
         val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
         sharedPreferences.edit().putInt(BASKET_COUNT, count).apply()
         invalidateOptionsMenu()
+        setResult(NEED_TO_REFRESH)
     }
 
     override fun onDestroy() {

@@ -15,6 +15,8 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import fr.isen.fili.androiderestaurant.HomeActivity.Companion.NEED_TO_REFRESH
+import fr.isen.fili.androiderestaurant.HomeActivity.Companion.REQUEST_CODE
 import fr.isen.fili.androiderestaurant.databinding.ActivityCategoryBinding
 import fr.isen.fili.androiderestaurant.model.Dish
 import fr.isen.fili.androiderestaurant.model.FoodDataJson
@@ -92,9 +94,18 @@ class CategoryActivity : BaseActivity() {
             binding.listCategory.adapter = CategoryListAdapter(menu) {
                 val intent = Intent(this, DetailCategoryActivity::class.java)
                 intent.putExtra("dish", it)
-                startActivity(intent)
+                startActivityForResult(intent, REQUEST_CODE)
             }
         }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == 4 && requestCode == REQUEST_CODE){
+            Log.i(REQUEST_CODE.toString(), "nani")
+            invalidateOptionsMenu()
+            setResult(NEED_TO_REFRESH)
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
