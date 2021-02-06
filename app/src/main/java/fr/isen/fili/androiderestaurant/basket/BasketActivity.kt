@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import fr.isen.fili.androiderestaurant.*
@@ -24,15 +25,26 @@ class BasketActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBasketBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
 
-        //Checker si client logger !!!
-        binding.payButton.setOnClickListener(){
+        //Checker si client est connecté
+        /*binding.payButton.setOnClickListener() {
             //Si le client n'est pas connecté alors on l'envoie sur la page de connexion, sinon sur order
-            if(ID_CLIENT == "0"){
+            if (ID_CLIENT == "0") {
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
             } else {
                 val intent = Intent(this, OrderActivity::class.java)
+                startActivity(intent)
+            }
+        }*/
+        binding.payButton.setOnClickListener() {
+            if (sharedPreferences.contains(ID_CLIENT)) {
+                val intent = Intent(this, OrderActivity::class.java)
+                startActivity(intent)
+            } else {
+                Snackbar.make(binding.payButton, "Veuillez vous connecter", Snackbar.LENGTH_LONG).show()
+                val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -54,19 +66,21 @@ class BasketActivity : BaseActivity() {
             foodRecycler.layoutManager = LinearLayoutManager(this)
             //foodRecycler.isVisible = true
         }
+        invalidateOptionsMenu()
     }
+
     fun resetBasket(basket: JsonBasket) {
         val gson = GsonBuilder().setPrettyPrinting().create()
         val file = File(cacheDir.absolutePath + "Basket.json")
         saveInMemory(basket, file)
     }
 
-    private fun saveInMemory(basket: JsonBasket, file: File){
+    private fun saveInMemory(basket: JsonBasket, file: File) {
         saveDishCount(basket)
         file.writeText(GsonBuilder().create().toJson(basket))
     }
 
-    private fun saveDishCount(basket: JsonBasket){
+    private fun saveDishCount(basket: JsonBasket) {
         val count = basket.items.sumOf { it.quantity }
         val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
         sharedPreferences.edit().putInt(BASKET_COUNT, count).apply()

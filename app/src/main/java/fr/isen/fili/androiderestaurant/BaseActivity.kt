@@ -12,9 +12,11 @@ import fr.isen.fili.androiderestaurant.RegisterActivity.Companion.ID_CLIENT
 import fr.isen.fili.androiderestaurant.basket.BasketActivity
 import fr.isen.fili.androiderestaurant.databinding.ActivityOrderBinding
 
-open class BaseActivity: AppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
         //Gestion du caddie
         menuInflater.inflate(R.menu.menu_action_bar, menu);
         val menuBasket = menu?.findItem(R.id.basket)?.actionView
@@ -25,21 +27,29 @@ open class BaseActivity: AppCompatActivity() {
         val menuHome = menu?.findItem(R.id.home)?.actionView
         val menuLogout = menu?.findItem(R.id.logout)?.actionView
 
-        menuBasket?.setOnClickListener{
+        menuBasket?.setOnClickListener {
             startActivity(Intent(this, BasketActivity::class.java))
         }
 
         //Gestion de l'icon home
-        menuHome?.setOnClickListener{
+        menuHome?.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
         }
 
         //Gestion de l'icon logout
-        menuLogout?.setOnClickListener{
-            val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
-            sharedPreferences.edit().putInt(ID_CLIENT, 0).apply()
-            Snackbar.make(menuLogout, "Vous êtes déconnecté(e)", Snackbar.LENGTH_LONG).show()
+        menuLogout?.setOnClickListener {
+            if (sharedPreferences.contains(ID_CLIENT)) {
+                with(sharedPreferences.edit()) {
+                    remove(ID_CLIENT)
+                    apply()
+                }
+                Snackbar.make(menuLogout, "Vous êtes déconnecté(e)", Snackbar.LENGTH_LONG).show()
+            }
+            else {
+                Snackbar.make(menuLogout, "Vous êtes déjà déconnecté(e)", Snackbar.LENGTH_LONG).show()
+            }
         }
+
         return super.onCreateOptionsMenu(menu);
     }
 }
