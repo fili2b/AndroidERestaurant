@@ -1,10 +1,12 @@
 package fr.isen.fili.androiderestaurant
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -23,20 +25,27 @@ import java.io.File
 private lateinit var binding: ActivityLoginBinding
 
 class LoginActivity : BaseActivity() {
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //swipe to register
-        binding.arrow.setOnClickListener(){
+       /* binding.arrow.setOnClickListener(){
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             /* val itemTouchHelper = adapter?.let { ArrowSwipe(it) }?.let { ItemTouchHelper(it) }
             if (itemTouchHelper != null) {
                 itemTouchHelper.attachTo(OrderList)
             }*/
-        }
+        }*/
+
+        binding.arrow.setOnTouchListener(object : SwipeButton(applicationContext){
+            override fun onSwipeLeft() {
+                changePage()
+            }
+        })
 
         //send login form
         binding.btnLogin.setOnClickListener(){
@@ -44,6 +53,12 @@ class LoginActivity : BaseActivity() {
                 sendLogin()
             }
         }
+    }
+
+    private fun changePage() {
+        Toast.makeText(applicationContext, "left", Toast.LENGTH_SHORT).show();
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
     }
 
     private fun validForm(): Boolean{

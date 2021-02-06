@@ -1,10 +1,13 @@
 package fr.isen.fili.androiderestaurant
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -16,9 +19,11 @@ import fr.isen.fili.androiderestaurant.model.LoginJson
 import org.json.JSONException
 import org.json.JSONObject
 
+
 private lateinit var binding: ActivityRegisterBinding
 
 class RegisterActivity : BaseActivity() {
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -33,15 +38,22 @@ class RegisterActivity : BaseActivity() {
         }
 
         //swipe to login
-        binding.arrow.setOnClickListener(){
+       /* binding.arrow.setOnClickListener(){
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-        /* val itemTouchHelper = adapter?.let { ArrowSwipe(it) }?.let { ItemTouchHelper(it) }
-        if (itemTouchHelper != null) {
-            itemTouchHelper.attachTo(OrderList)
         }*/
-        }
 
+        binding.arrow.setOnTouchListener(object : SwipeButton(applicationContext){
+            override fun onSwipeRight() {
+                changePage()
+            }
+        })
+    }
+
+    private fun changePage() {
+        Toast.makeText(applicationContext, "right", Toast.LENGTH_SHORT).show();
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 
     private fun sendAccount(){
@@ -69,7 +81,7 @@ class RegisterActivity : BaseActivity() {
                 sharedPreferences.edit().putString(ID_CLIENT, gson.data.id.toString()).apply()
             },
             {
-                Log.i("state","request failed")
+                Log.i("state", "request failed")
             })
         requestQueue.add(jsonObjectRequest)
     }
@@ -77,9 +89,15 @@ class RegisterActivity : BaseActivity() {
     private fun everythingValid(): Boolean{
         val notBlank = binding.firstName.text.isNotBlank() && binding.lastName.text.isNotBlank() && binding.address.text.isNotBlank() && binding.email.text.isNotBlank() && binding.password.text.isNotBlank()
         //val goodPassword = binding.password.text.toString().length >= 8
-        val goodEmail = !binding.email.text.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(binding.email.text).matches()
+        val goodEmail = !binding.email.text.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(
+            binding.email.text
+        ).matches()
         if(!notBlank || !goodEmail){
-            Snackbar.make(binding.root, "Veuillez remplir tous les champs et saisir un email correct", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(
+                binding.root,
+                "Veuillez remplir tous les champs et saisir un email correct",
+                Snackbar.LENGTH_LONG
+            ).show()
             return false
         }
         return true
