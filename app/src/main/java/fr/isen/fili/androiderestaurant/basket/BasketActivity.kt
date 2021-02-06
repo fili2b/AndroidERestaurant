@@ -29,7 +29,7 @@ class BasketActivity : BaseActivity() {
         binding.payButton.setOnClickListener(){
             //already connected ? If yes then redirect to order
             //if(ID_CLIENT != null){
-              //  val intent = Intent(this, BasketActivity::class.java)
+              //  val intent = Intent(this, OrderActivity::class.java)
                 //startActivity(intent)
             //} else {
                 val intent = Intent(this, RegisterActivity::class.java)

@@ -85,8 +85,8 @@ class CategoryActivity : BaseActivity() {
         }
 
         private fun displayCategories(menu: List<Dish>) {
-            //binding.categorieLoader.isVisible = false
-            //binding.listCategory.isVisible = true
+            binding.categorieLoader.isVisible = false
+            binding.listCategory.isVisible = true
 
             binding.listCategory.layoutManager = LinearLayoutManager(this)
             binding.listCategory.adapter = CategoryListAdapter(menu) {
@@ -95,4 +95,14 @@ class CategoryActivity : BaseActivity() {
                 startActivity(intent)
             }
         }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        invalidateOptionsMenu()
+        Log.i(ACTIVITY, "destroyed")
+    }
+
+    companion object{
+        const val ACTIVITY = "CategoryActivity"
+    }
 }

@@ -3,6 +3,7 @@ package fr.isen.fili.androiderestaurant
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.GsonBuilder
 import fr.isen.fili.androiderestaurant.basket.JsonBasket
@@ -102,8 +103,15 @@ class DetailCategoryActivity : BaseActivity() {
         invalidateOptionsMenu()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        invalidateOptionsMenu()
+        Log.i(ACTIVITY, "destroyed")
+    }
+
     companion object {
         const val APP_PREFS = "app_prefs"
         const val BASKET_COUNT = "basket_count"
+        const val ACTIVITY = "DetailCategoryActivity"
     }
 }

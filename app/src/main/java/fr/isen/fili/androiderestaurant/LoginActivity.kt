@@ -22,7 +22,7 @@ import java.io.File
 
 private lateinit var binding: ActivityLoginBinding
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -68,7 +68,9 @@ class LoginActivity : AppCompatActivity() {
                     val sharedPreferences = getSharedPreferences(BasketActivity.APP_PREFS, MODE_PRIVATE)
                     sharedPreferences.edit().putString(ID_CLIENT, gson.data.id.toString()).apply()
                     Snackbar.make(binding.root, "Vous êtes connecté(e)", Snackbar.LENGTH_LONG).show()
-                    redirectUser()
+                    //Redirection une fois logger
+                    val intent = Intent(this, OrderActivity::class.java)
+                    startActivity(intent)
                 } else{
                     Snackbar.make(binding.root, "Compte inexistant", Snackbar.LENGTH_LONG).show()
                 }
@@ -80,30 +82,13 @@ class LoginActivity : AppCompatActivity() {
         requestQueue.add(stringRequest)
     }
 
-    private fun redirectUser(){
-        val file = File(cacheDir.absolutePath + "Basket.json")
-        val request = Order("1", ID_CLIENT, file)
-        val requestQueue = Volley.newRequestQueue(this)
-        val postUrl = "http://test.api.catering.bluecodegames.com/user/order"
-        val postData = JSONObject(Gson().toJson(request))
-        val stringRequest = JsonObjectRequest(
-            Request.Method.POST, postUrl, postData, { response ->
-                if(response.toString().contains("data")) {
-                    val gson = Gson().fromJson(response.toString(), LoginJson::class.java)
-                    val sharedPreferences = getSharedPreferences(BasketActivity.APP_PREFS, MODE_PRIVATE)
-                    sharedPreferences.edit().putString(ID_CLIENT, gson.data.id.toString()).apply()
-                    Snackbar.make(binding.root, "Vous êtes connecté(e)", Snackbar.LENGTH_LONG).show()
-                    redirectUser()
-                } else{
-                    Snackbar.make(binding.root, "Compte inexistant", Snackbar.LENGTH_LONG).show()
-                }
-            },
-            {
-                Snackbar.make(binding.root, "Erreur de connexion", Snackbar.LENGTH_LONG).show()
-            }
-        )
-        requestQueue.add(stringRequest)
-        val intent = Intent(this, BasketActivity::class.java)
-        startActivity(intent)
+    override fun onDestroy() {
+        super.onDestroy()
+        invalidateOptionsMenu()
+        Log.i(ACTIVITY, "destroyed")
+    }
+
+    companion object{
+        const val ACTIVITY = "LoginActivity"
     }
 }

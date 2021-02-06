@@ -18,7 +18,7 @@ import org.json.JSONObject
 
 private lateinit var binding: ActivityRegisterBinding
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -85,7 +85,14 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        invalidateOptionsMenu()
+        Log.i(ACTIVITY, "destroyed")
+    }
+
     companion object {
         const val ID_CLIENT = "id_client"
+        const val ACTIVITY = "RegisterActivity"
     }
 }
