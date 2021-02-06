@@ -27,14 +27,14 @@ class BasketActivity : BaseActivity() {
 
         //Checker si client logger !!!
         binding.payButton.setOnClickListener(){
-            //already connected ? If yes then redirect to order
-            //if(ID_CLIENT != null){
-              //  val intent = Intent(this, OrderActivity::class.java)
-                //startActivity(intent)
-            //} else {
+            //Si le client n'est pas connecté alors on l'envoie sur la page de connexion, sinon sur order
+            if(ID_CLIENT == "0"){
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
-            //}
+            } else {
+                val intent = Intent(this, OrderActivity::class.java)
+                startActivity(intent)
+            }
         }
         readFile()
     }
