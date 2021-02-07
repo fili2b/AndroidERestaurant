@@ -31,17 +31,6 @@ class BasketActivity : BaseActivity() {
         val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
 
         //Checker si client est connecté
-        /*binding.payButton.setOnClickListener() {
-            //Si le client n'est pas connecté alors on l'envoie sur la page de connexion, sinon sur order
-            if (ID_CLIENT == "0") {
-                val intent = Intent(this, RegisterActivity::class.java)
-                startActivity(intent)
-            } else {
-                val intent = Intent(this, OrderActivity::class.java)
-                startActivity(intent)
-            }
-        }*/
-
         val file = File(cacheDir.absolutePath + "Basket.json")
         binding.payButton.setOnClickListener() {
             //On verifie si le panier est vide
@@ -102,11 +91,6 @@ class BasketActivity : BaseActivity() {
         sharedPreferences.edit().putInt(BASKET_COUNT, count).apply()
         //invalidateOptionsMenu()
     }
-
-    /*companion object {
-        const val APP_PREFS = "app_prefs"
-        const val BASKET_COUNT = "basket_count"
-    }*/
 }
 
 

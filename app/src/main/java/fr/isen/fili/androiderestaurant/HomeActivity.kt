@@ -48,7 +48,6 @@ class HomeActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.i(REQUEST_CODE.toString(), "nani")
         if(resultCode == 4 && requestCode == REQUEST_CODE) {
             invalidateOptionsMenu()
         }

@@ -101,7 +101,6 @@ class CategoryActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == 4 && requestCode == REQUEST_CODE){
-            Log.i(REQUEST_CODE.toString(), "nani")
             invalidateOptionsMenu()
             setResult(NEED_TO_REFRESH)
         }

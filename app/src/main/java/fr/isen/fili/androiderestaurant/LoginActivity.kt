@@ -2,25 +2,21 @@ package fr.isen.fili.androiderestaurant
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.APP_PREFS
 import fr.isen.fili.androiderestaurant.RegisterActivity.Companion.ID_CLIENT
-import fr.isen.fili.androiderestaurant.basket.BasketActivity
 import fr.isen.fili.androiderestaurant.databinding.ActivityLoginBinding
-import fr.isen.fili.androiderestaurant.databinding.ActivityRegisterBinding
 import fr.isen.fili.androiderestaurant.model.LoginJson
 import fr.isen.fili.androiderestaurant.model.UserJson
 import org.json.JSONObject
-import java.io.File
 
 private lateinit var binding: ActivityLoginBinding
 
@@ -56,7 +52,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun changePage() {
-        Toast.makeText(applicationContext, "left", Toast.LENGTH_SHORT).show();
+        Toast.makeText(applicationContext, "Register page", Toast.LENGTH_SHORT).show();
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
@@ -82,7 +78,7 @@ class LoginActivity : BaseActivity() {
                 if(response.toString().contains("data")) {
                     val gson = Gson().fromJson(response.toString(), LoginJson::class.java)
                     //On recupere les sharedPreferences
-                    val sharedPreferences = getSharedPreferences(BasketActivity.APP_PREFS, MODE_PRIVATE)
+                    val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
                     //On sauvegarde l'id client de la reponse dans la variable ID_CLIENT
                     sharedPreferences.edit().putString(ID_CLIENT, gson.data.id.toString()).apply()
                     Snackbar.make(binding.root, "Vous êtes connecté(e)", Snackbar.LENGTH_LONG).show()

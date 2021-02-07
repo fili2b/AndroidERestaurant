@@ -2,7 +2,6 @@ package fr.isen.fili.androiderestaurant
 
 import android.content.Intent
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -10,7 +9,6 @@ import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.APP_PREF
 import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.BASKET_COUNT
 import fr.isen.fili.androiderestaurant.RegisterActivity.Companion.ID_CLIENT
 import fr.isen.fili.androiderestaurant.basket.BasketActivity
-import fr.isen.fili.androiderestaurant.databinding.ActivityOrderBinding
 
 open class BaseActivity : AppCompatActivity() {
 

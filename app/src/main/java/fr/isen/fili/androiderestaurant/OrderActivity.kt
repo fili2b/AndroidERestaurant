@@ -1,12 +1,8 @@
 package fr.isen.fili.androiderestaurant
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.View
-import android.widget.TextView
 import androidx.core.view.isVisible
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -14,14 +10,10 @@ import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.APP_PREFS
 import fr.isen.fili.androiderestaurant.RegisterActivity.Companion.ID_CLIENT
-import fr.isen.fili.androiderestaurant.basket.BasketActivity
 import fr.isen.fili.androiderestaurant.basket.JsonBasket
-import fr.isen.fili.androiderestaurant.databinding.ActivityBasketBinding
-import fr.isen.fili.androiderestaurant.databinding.ActivityLoginBinding
 import fr.isen.fili.androiderestaurant.databinding.ActivityOrderBinding
-import fr.isen.fili.androiderestaurant.model.LoginJson
-import fr.isen.fili.androiderestaurant.model.UserJson
 import org.json.JSONObject
 import java.io.File
 
@@ -50,7 +42,7 @@ class OrderActivity : BaseActivity() {
         val json: JsonBasket = gson.fromJson(file.readText(), JsonBasket::class.java)
 
         //On récupère l'id du client
-        val sharedPreferences = getSharedPreferences(BasketActivity.APP_PREFS, MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
         val user = sharedPreferences.getString(ID_CLIENT, "0")
 
         //On met toutes les infos dans la requete

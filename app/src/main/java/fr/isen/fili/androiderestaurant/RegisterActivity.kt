@@ -1,19 +1,17 @@
 package fr.isen.fili.androiderestaurant
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import fr.isen.fili.androiderestaurant.basket.BasketActivity
+import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.APP_PREFS
 import fr.isen.fili.androiderestaurant.databinding.ActivityRegisterBinding
 import fr.isen.fili.androiderestaurant.model.LoginJson
 import org.json.JSONException
@@ -51,7 +49,7 @@ class RegisterActivity : BaseActivity() {
     }
 
     private fun changePage() {
-        Toast.makeText(applicationContext, "right", Toast.LENGTH_SHORT).show();
+        Toast.makeText(applicationContext, "Login page", Toast.LENGTH_SHORT).show();
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
@@ -77,7 +75,7 @@ class RegisterActivity : BaseActivity() {
         val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, postUrl, postData,
             {
                 val gson = Gson().fromJson(it.toString(), LoginJson::class.java)
-                val sharedPreferences = getSharedPreferences(BasketActivity.APP_PREFS, MODE_PRIVATE)
+                val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
                 sharedPreferences.edit().putString(ID_CLIENT, gson.data.id.toString()).apply()
             },
             {
