@@ -10,6 +10,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import fr.isen.fili.androiderestaurant.*
+import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.APP_PREFS
+import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.BASKET_COUNT
 import fr.isen.fili.androiderestaurant.RegisterActivity.Companion.ID_CLIENT
 import fr.isen.fili.androiderestaurant.basket.JsonBasket
 import fr.isen.fili.androiderestaurant.basket.JsonItemBasket
@@ -23,6 +25,7 @@ private lateinit var binding: ActivityBasketBinding
 class BasketActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityBasketBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
@@ -38,16 +41,29 @@ class BasketActivity : BaseActivity() {
                 startActivity(intent)
             }
         }*/
+
+        val file = File(cacheDir.absolutePath + "Basket.json")
         binding.payButton.setOnClickListener() {
-            if (sharedPreferences.contains(ID_CLIENT)) {
-                val intent = Intent(this, OrderActivity::class.java)
-                startActivity(intent)
+            //On verifie si le panier est vide
+            if (BASKET_COUNT == "0" || !file.exists()) {
+                Snackbar.make(binding.root, "Votre panier est vide", Snackbar.LENGTH_LONG).show()
             } else {
-                Snackbar.make(binding.payButton, "Veuillez vous connecter", Snackbar.LENGTH_LONG).show()
-                val intent = Intent(this, RegisterActivity::class.java)
-                startActivity(intent)
+                //s'il ne l'est pas, on procede au paiement ou a l'authentification
+                if (sharedPreferences.contains(ID_CLIENT)) {
+                    val intent = Intent(this, OrderActivity::class.java)
+                    startActivityForResult(intent, 4)
+                } else {
+                    Snackbar.make(
+                        binding.payButton,
+                        "Veuillez vous connecter",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                    val intent = Intent(this, RegisterActivity::class.java)
+                    startActivityForResult(intent, 4)
+                }
             }
         }
+
         readFile()
     }
 
@@ -84,12 +100,13 @@ class BasketActivity : BaseActivity() {
         val count = basket.items.sumOf { it.quantity }
         val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
         sharedPreferences.edit().putInt(BASKET_COUNT, count).apply()
+        //invalidateOptionsMenu()
     }
 
-    companion object {
+    /*companion object {
         const val APP_PREFS = "app_prefs"
         const val BASKET_COUNT = "basket_count"
-    }
+    }*/
 }
 
 
