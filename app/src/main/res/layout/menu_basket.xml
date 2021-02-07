@@ -7,7 +7,7 @@
     android:layout_height="50dp">
 
     <ImageView
-        android:id="@+id/homeIcon"
+        android:id="@+id/basketIcon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="8dp"

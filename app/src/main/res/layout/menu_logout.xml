@@ -7,7 +7,7 @@
     android:layout_height="50dp">
 
     <ImageView
-        android:id="@+id/homeIcon"
+        android:id="@+id/logoutIcon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="8dp"
@@ -15,6 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logouticon" />
+        app:srcCompat="@drawable/logouticon2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
