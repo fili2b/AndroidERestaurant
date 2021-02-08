@@ -35,12 +35,7 @@ class RegisterActivity : BaseActivity() {
             }
         }
 
-        //swipe to login
-       /* binding.arrow.setOnClickListener(){
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }*/
-
+        //swipe pour se logger
         binding.arrow.setOnTouchListener(object : SwipeButton(applicationContext){
             override fun onSwipeRight() {
                 changePage()
@@ -99,6 +94,11 @@ class RegisterActivity : BaseActivity() {
             return false
         }
         return true
+    }
+
+    override fun onResume() {
+        invalidateOptionsMenu()
+        super.onResume()
     }
 
     override fun onDestroy() {

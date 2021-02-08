@@ -3,6 +3,7 @@ package fr.isen.fili.androiderestaurant.basket
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -89,7 +90,21 @@ class BasketActivity : BaseActivity() {
         val count = basket.items.sumOf { it.quantity }
         val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
         sharedPreferences.edit().putInt(BASKET_COUNT, count).apply()
-        //invalidateOptionsMenu()
+    }
+
+    override fun onResume() {
+        invalidateOptionsMenu()
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        invalidateOptionsMenu()
+        Log.i(ACTIVITY, "destroyed")
+    }
+
+    companion object{
+        const val ACTIVITY = "BasketActivity"
     }
 }
 

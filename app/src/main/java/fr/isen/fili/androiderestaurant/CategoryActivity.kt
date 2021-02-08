@@ -1,22 +1,15 @@
 package fr.isen.fili.androiderestaurant
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import fr.isen.fili.androiderestaurant.HomeActivity.Companion.NEED_TO_REFRESH
-import fr.isen.fili.androiderestaurant.HomeActivity.Companion.REQUEST_CODE
 import fr.isen.fili.androiderestaurant.databinding.ActivityCategoryBinding
 import fr.isen.fili.androiderestaurant.model.Dish
 import fr.isen.fili.androiderestaurant.model.FoodDataJson
@@ -94,16 +87,13 @@ class CategoryActivity : BaseActivity() {
             binding.listCategory.adapter = CategoryListAdapter(menu) {
                 val intent = Intent(this, DetailCategoryActivity::class.java)
                 intent.putExtra("dish", it)
-                startActivityForResult(intent, REQUEST_CODE)
+                startActivity(intent)
             }
         }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 4 && requestCode == REQUEST_CODE){
-            invalidateOptionsMenu()
-            setResult(NEED_TO_REFRESH)
-        }
+    override fun onResume() {
+        invalidateOptionsMenu()
+        super.onResume()
     }
 
     override fun onDestroy() {

@@ -3,7 +3,6 @@ package fr.isen.fili.androiderestaurant
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import fr.isen.fili.androiderestaurant.databinding.ActivityHomeBinding
 
 private lateinit var binding: ActivityHomeBinding
@@ -36,21 +35,9 @@ class HomeActivity : BaseActivity() {
             //val toast = Toast.makeText(applicationContext, "Desserts sélectionnés", Toast.LENGTH_SHORT)
             //toast.show()
             intent.putExtra(CATEGORY, getString(R.string.dessert_title))
-            startActivityForResult(intent, REQUEST_CODE)
+            startActivity(intent)
         }
 
-    }
-    //start(activityforresult)
-    //set result(needToRefresh) apres le invalidOptionsMenu()
-    //override fun onactivityresult()
-    //  requestcode == 3
-    //  resultcode == resultcode
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 4 && requestCode == REQUEST_CODE) {
-            invalidateOptionsMenu()
-        }
     }
 
     override fun onDestroy() {
@@ -62,7 +49,10 @@ class HomeActivity : BaseActivity() {
     companion object{
         const val ACTIVITY = "HomeActivity"
         const val CATEGORY = "category"
-        const val REQUEST_CODE = 3
-        const val NEED_TO_REFRESH = 4
+    }
+
+    override fun onResume() {
+        invalidateOptionsMenu()
+        super.onResume()
     }
 }

@@ -77,6 +77,11 @@ class OrderActivity : BaseActivity() {
         requestQueue.add(stringRequest)
     }
 
+    override fun onResume() {
+        invalidateOptionsMenu()
+        super.onResume()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         invalidateOptionsMenu()

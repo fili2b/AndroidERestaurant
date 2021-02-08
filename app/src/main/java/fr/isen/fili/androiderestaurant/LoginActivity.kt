@@ -27,23 +27,13 @@ class LoginActivity : BaseActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //swipe to register
-       /* binding.arrow.setOnClickListener(){
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            /* val itemTouchHelper = adapter?.let { ArrowSwipe(it) }?.let { ItemTouchHelper(it) }
-            if (itemTouchHelper != null) {
-                itemTouchHelper.attachTo(OrderList)
-            }*/
-        }*/
-
         binding.arrow.setOnTouchListener(object : SwipeButton(applicationContext){
             override fun onSwipeLeft() {
                 changePage()
             }
         })
 
-        //send login form
+        //On envoie les données de login
         binding.btnLogin.setOnClickListener(){
             if(validForm()){
                 sendLogin()
@@ -95,6 +85,11 @@ class LoginActivity : BaseActivity() {
             }
         )
         requestQueue.add(stringRequest)
+    }
+
+    override fun onResume() {
+        invalidateOptionsMenu()
+        super.onResume()
     }
 
     override fun onDestroy() {
