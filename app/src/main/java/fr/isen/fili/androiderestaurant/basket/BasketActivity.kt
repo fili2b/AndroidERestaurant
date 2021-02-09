@@ -56,7 +56,7 @@ class BasketActivity : BaseActivity() {
             val basket = gson.fromJson(file.readText(), JsonBasket::class.java)
             val foodRecycler = binding.basketRecyclerView
             foodRecycler.adapter = BasketListAdapter(basket.items.toMutableList()) {
-                //On verifie si la quantité vaut 0, si oui on supprime l'item du fichier
+                //On verifie si la quantité est differente de 0, si oui on garde la quantité diminuée
                 if (it.quantity != 0) {
                     it.quantity
                 } else {
