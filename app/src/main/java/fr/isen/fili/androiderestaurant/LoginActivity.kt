@@ -15,6 +15,7 @@ import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.APP_PREF
 import fr.isen.fili.androiderestaurant.RegisterActivity.Companion.ID_CLIENT
 import fr.isen.fili.androiderestaurant.databinding.ActivityLoginBinding
 import fr.isen.fili.androiderestaurant.model.LoginJson
+import fr.isen.fili.androiderestaurant.model.SwipeButton
 import fr.isen.fili.androiderestaurant.model.UserJson
 import org.json.JSONObject
 

@@ -1,25 +1,17 @@
 package fr.isen.fili.androiderestaurant.basket
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import fr.isen.fili.androiderestaurant.*
 import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.APP_PREFS
 import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.BASKET_COUNT
 import fr.isen.fili.androiderestaurant.RegisterActivity.Companion.ID_CLIENT
-import fr.isen.fili.androiderestaurant.basket.JsonBasket
-import fr.isen.fili.androiderestaurant.basket.JsonItemBasket
 import fr.isen.fili.androiderestaurant.databinding.ActivityBasketBinding
-import fr.isen.fili.androiderestaurant.model.Dish
 import java.io.File
-import java.io.FileNotFoundException
 
 private lateinit var binding: ActivityBasketBinding
 
@@ -64,21 +56,18 @@ class BasketActivity : BaseActivity() {
             val basket = gson.fromJson(file.readText(), JsonBasket::class.java)
             val foodRecycler = binding.basketRecyclerView
             foodRecycler.adapter = BasketListAdapter(basket.items.toMutableList()) {
-                //On remove l'item dans le fichier
-                basket.items.remove(it)
+                //On verifie si la quantité vaut 0, si oui on supprime l'item du fichier
+                if (it.quantity != 0) {
+                    it.quantity
+                } else {
+                    basket.items.remove(it)
+                }
+
                 //On met a jour
-                resetBasket(basket)
+                saveInMemory(basket, file)
             }
             foodRecycler.layoutManager = LinearLayoutManager(this)
-            //foodRecycler.isVisible = true
         }
-        invalidateOptionsMenu()
-    }
-
-    fun resetBasket(basket: JsonBasket) {
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val file = File(cacheDir.absolutePath + "Basket.json")
-        saveInMemory(basket, file)
     }
 
     private fun saveInMemory(basket: JsonBasket, file: File) {
@@ -90,6 +79,7 @@ class BasketActivity : BaseActivity() {
         val count = basket.items.sumOf { it.quantity }
         val sharedPreferences = getSharedPreferences(APP_PREFS, MODE_PRIVATE)
         sharedPreferences.edit().putInt(BASKET_COUNT, count).apply()
+        invalidateOptionsMenu()
     }
 
     override fun onResume() {
@@ -103,7 +93,7 @@ class BasketActivity : BaseActivity() {
         Log.i(ACTIVITY, "destroyed")
     }
 
-    companion object{
+    companion object {
         const val ACTIVITY = "BasketActivity"
     }
 }

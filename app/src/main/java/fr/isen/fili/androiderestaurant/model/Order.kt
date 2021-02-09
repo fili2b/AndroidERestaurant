@@ -1,4 +1,4 @@
-package fr.isen.fili.androiderestaurant
+package fr.isen.fili.androiderestaurant.model
 import com.google.gson.annotations.SerializedName
 import java.io.File
 import java.io.Serializable

@@ -1,4 +1,4 @@
-package fr.isen.fili.androiderestaurant
+package fr.isen.fili.androiderestaurant.model
 
 import android.content.Context
 import android.view.GestureDetector

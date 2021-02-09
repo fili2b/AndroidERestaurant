@@ -38,6 +38,7 @@ class BasketListAdapter(private val data: MutableList<JsonItemBasket>, private v
             deleteItem(position)
             //puis on delete l'item dans le fichier en passant par l'activité
             deleteItemListener.invoke(data)
+
         }
     }
 
@@ -45,6 +46,7 @@ class BasketListAdapter(private val data: MutableList<JsonItemBasket>, private v
         if(data[position].quantity != 1){
             data[position].quantity--
         } else {
+            data[position].quantity--
             data.removeAt(position)
         }
         notifyDataSetChanged()

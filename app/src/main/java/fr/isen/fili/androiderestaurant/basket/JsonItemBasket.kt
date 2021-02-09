@@ -6,4 +6,7 @@ import java.io.Serializable
 
 data class JsonItemBasket(
         @SerializedName("quantity") var quantity: Int,
-        @SerializedName("item")var item: Dish) :Serializable
+        @SerializedName("item")var item: Dish
+        ) :Serializable
+
+

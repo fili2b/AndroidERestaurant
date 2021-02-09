@@ -14,6 +14,7 @@ import com.google.gson.Gson
 import fr.isen.fili.androiderestaurant.DetailCategoryActivity.Companion.APP_PREFS
 import fr.isen.fili.androiderestaurant.databinding.ActivityRegisterBinding
 import fr.isen.fili.androiderestaurant.model.LoginJson
+import fr.isen.fili.androiderestaurant.model.SwipeButton
 import org.json.JSONException
 import org.json.JSONObject
 

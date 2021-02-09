@@ -40,7 +40,6 @@ class CategoryListAdapter(val categories: List<Dish>, private val categoriesClic
     class CategoryHolder(binding: CategoryCellBinding): RecyclerView.ViewHolder(binding.root){
         val title = binding.dishName
         val layout = binding.root
-        //val description = binding.dishDescription
         val tarif = binding.totalPrice
         val image = binding.dishPicture
     }
